@@ -1,0 +1,8 @@
+FROM nginx:1.15-alpine
+
+RUN apk add tzdata \
+&& cp /usr/share/zoneinfo/Hongkong /etc/localtime \
+&& echo "Hongkong" > /etc/timezone
+
+RUN rm -rf /usr/share/nginx/html
+RUN rm -rf /etc/nginx/conf.d/*

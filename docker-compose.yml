@@ -1,0 +1,73 @@
+version: '3.5'
+
+services:
+
+    php-fpm:
+        container_name: php-fpm
+        build:
+            context: .
+            dockerfile: Dockerfile.php-fpm
+        volumes:
+            #-  /sock/docker.sock:/sock/docker.sock
+            - ./html:/var/www/html
+            - ./php/php.ini:/usr/local/etc/php/php.ini
+            #- ./php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+        restart: always
+        networks:
+            - lnmp
+
+    nginx:
+        container_name: nginx
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+        volumes:
+            #- /sock/docker.sock:/sock/docker.sock
+            - ./html:/var/www/html
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            #- ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            #- ./nginx/conf.d/laravel.conf:/etc/nginx/conf.d/laravel.conf
+            #- ./nginx/conf.d/drupal.conf:/etc/nginx/conf.d/drupal.conf
+        ports:
+            - "80:80"
+        depends_on:
+            - php-fpm
+        restart: always
+        networks:
+            - lnmp
+
+    mysql:
+        container_name: mysql
+        build:
+            context: .
+            dockerfile: Dockerfile.mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 1
+            MYSQL_DATABASE: laravel
+        restart: always
+        networks:
+            - lnmp
+
+    # redis:
+    #     container_name: redis
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile.redis
+    #     restart: always
+    #     networks:
+    #         - lnmp
+
+    # mongo:
+    #     container_name: mongo
+    #     image: mongo:3-stretch
+    #     environment:
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: 1
+    #     restart: always
+    #     networks:
+    #         - lnmp
+
+networks:
+    lnmp:
+        name: lnmp
+        driver: bridge

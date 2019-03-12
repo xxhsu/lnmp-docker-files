@@ -1,0 +1,32 @@
+FROM php:7.3-fpm-alpine
+
+RUN apk add tzdata \
+&& cp /usr/share/zoneinfo/Hongkong /etc/localtime \
+&& echo "Hongkong" > /etc/timezone
+
+#RUN apt-get update && \
+#  apt-get upgrade -y && \
+#  apt-get install -y --no-install-recommends \
+#    curl \
+#    libmemcached-dev \
+#    libz-dev \
+#    libpq-dev \
+#    libjpeg-dev \
+#    libpng-dev \
+#    libfreetype6-dev \
+#    libssl-dev \
+#    libmcrypt-dev \
+#  && rm -rf /var/lib/apt/lists/*rcmd
+
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+#COPY zz-docker.conf /usr/local/etc/php-fpm.d/
+#RUN docker-php-ext-install pdo_mysql
+#RUN docker-php-ext-install opcache
+#RUN docker-php-ext-install mbstring
+#RUN docker-php-ext-install zip
+#RUN docker-php-ext-install curl
+#RUN docker-php-ext-configure gd \
+#    --with-jpeg-dir=/usr/lib \
+#    --with-freetype-dir=/usr/include/freetype2 && \
+#    docker-php-ext-install gd
+WORKDIR /var/www/html
