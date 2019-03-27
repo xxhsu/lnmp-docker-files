@@ -1,9 +1,5 @@
 FROM php:7.3-fpm
 
-RUN apk add tzdata \
-&& cp /usr/share/zoneinfo/Hongkong /etc/localtime \
-&& echo "Hongkong" > /etc/timezone
-
 RUN apt-get update && \
   apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
@@ -29,4 +25,4 @@ RUN docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd
-ORKDIR /var/www/html
+WORKDIR /var/www/html
