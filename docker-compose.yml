@@ -46,25 +46,6 @@ services:
         networks:
             - lnmp
 
-    # redis:
-    #     container_name: redis
-    #     build:
-    #         context: .
-    #         dockerfile: ./dockerfile/redis
-    #     restart: always
-    #     networks:
-    #         - lnmp
-
-    # mongo:
-    #     container_name: mongo
-    #     image: mongo:3-stretch
-    #     environment:
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: 1
-    #     restart: always
-    #     networks:
-    #         - lnmp
-
 networks:
     lnmp:
         name: lnmp
