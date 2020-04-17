@@ -6,7 +6,7 @@ services:
         container_name: php-fpm
         build:
             context: .
-            dockerfile: Dockerfile.php-fpm
+            dockerfile: ./dockerfile/php-fpm
         volumes:
             #-  /sock/docker.sock:/sock/docker.sock
             - ./html:/var/www/html
@@ -20,7 +20,7 @@ services:
         container_name: nginx
         build:
             context: .
-            dockerfile: Dockerfile.nginx
+            dockerfile: ./dockerfile/nginx
         volumes:
             #- /sock/docker.sock:/sock/docker.sock
             - ./html:/var/www/html
@@ -38,7 +38,7 @@ services:
         container_name: mysql
         build:
             context: .
-            dockerfile: Dockerfile.mysql
+            dockerfile: ./dockerfile/mysql
         environment:
             MYSQL_ROOT_PASSWORD: 1
             MYSQL_DATABASE: laravel
@@ -50,7 +50,7 @@ services:
     #     container_name: redis
     #     build:
     #         context: .
-    #         dockerfile: Dockerfile.redis
+    #         dockerfile: ./dockerfile/redis
     #     restart: always
     #     networks:
     #         - lnmp
