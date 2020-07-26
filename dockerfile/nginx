@@ -4,6 +4,7 @@ RUN apt-get update
 
 RUN apk add tzdata && \
 	cp /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime && \
-	echo "Hongkong" > /etc/timezone
+	echo "Hongkong" > /etc/timezone && \
+	apk del tzdata
 
 RUN mkdir -p /var/www/html
