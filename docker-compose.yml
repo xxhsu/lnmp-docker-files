@@ -8,10 +8,8 @@ services:
             context: .
             dockerfile: ./dockerfile/php-fpm
         volumes:
-            #-  /sock/docker.sock:/sock/docker.sock
             - ./html:/var/www/html
             - ./php/php.ini:/usr/local/etc/php/php.ini
-            #- ./php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
         restart: always
         networks:
             - lnmp
@@ -22,11 +20,8 @@ services:
             context: .
             dockerfile: ./dockerfile/nginx
         volumes:
-            #- /sock/docker.sock:/sock/docker.sock
             - ./html:/var/www/html
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ./nginx/conf.d:/etc/nginx/conf.d
-            - ./nginx/log:/var/log/nginx
+            - ./nginx/:/etc/nginx/
         ports:
             - "80:80"
         depends_on:
@@ -43,6 +38,8 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: 1
             MYSQL_DATABASE: laravel
+        ports:
+            - "3306:3306"
         restart: always
         networks:
             - lnmp

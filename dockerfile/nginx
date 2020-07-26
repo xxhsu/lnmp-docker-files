@@ -1,8 +1,9 @@
-FROM nginx:1.18-alpine
+FROM nginx:1.19-alpine
 
-RUN apk add tzdata \
-&& cp /usr/share/zoneinfo/Hongkong /etc/localtime \
-&& echo "Hongkong" > /etc/timezone
+RUN apt-get update
 
-RUN rm -rf /usr/share/nginx/html
-RUN rm -rf /etc/nginx/conf.d/*
+RUN apk add tzdata && \
+	cp /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime && \
+	echo "Hongkong" > /etc/timezone
+
+RUN mkdir -p /var/www/html
